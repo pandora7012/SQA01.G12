@@ -20,11 +20,12 @@
         </script>
     </head>
     <body>
-        <jsp:include page="base.jsp"/>
+        <jsp:include page="index.jsp"/>
         <c:set var="a" value="${sessionScope.account}"/>
         <c:set var="l" value="${requestScope.loan}"/>
         <c:set var="listpayment" value="${requestScope.listpayment}"/>
         <div style="width: 80%; float: right; font-size: 18px; margin-left: 15px">
+            <input hidden name="accountid" value="${sessionScope.account.id}"/>
             <center>
                 <h3>THÔNG TIN VAY LÃI</h3>
                 <table>
@@ -69,7 +70,6 @@
                         </tr>
                     </c:forEach>
                 </table>
-<!--                <h4>${sessionScope.balance_before} and ${sessionScope.balance_after}</h4>-->
             </center>
         </div>
     </body>

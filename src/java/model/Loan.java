@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Date;
 
@@ -11,7 +12,7 @@ import java.sql.Date;
  *
  * @author Admin
  */
-public class Loan {
+public class Loan implements Serializable {
     private int id;
     private Account account;
     private BigInteger amount;
@@ -26,6 +27,16 @@ public class Loan {
 
     public Loan(int id, Account account, BigInteger amount, String payment_form, int loan_time, double interest_rate, String begin_date, boolean state) {
         this.id = id;
+        this.account = account;
+        this.amount = amount;
+        this.payment_form = payment_form;
+        this.loan_time = loan_time;
+        this.interest_rate = interest_rate;
+        this.begin_date = begin_date;
+        this.state = state;
+    }
+    
+    public Loan(Account account, BigInteger amount, String payment_form, int loan_time, double interest_rate, String begin_date, boolean state) {
         this.account = account;
         this.amount = amount;
         this.payment_form = payment_form;

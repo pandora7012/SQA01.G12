@@ -7,32 +7,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : Admin
 */
 .sidebar {
-height: 100%;
-width: 210px;
-position: absolute;
-left: 0;
-top: 0;
-padding-top: 40px;
-background-color: blue;
+    height: 100%;
+    width: 210px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 40px;
+    background-color: skyblue;
 }
 
 .sidebar a {
-padding: 8px;
-font-size: 24px;
-display: block;
-text-decoration: none;
-color: white;
+    padding: 8px;
+    font-size: 24px;
+    display: block;
+    text-decoration: none;
+    color: black;
 }
 
 .sidebar a:hover {
-cursor: pointer;
-opacity: .7;
-background-color: darkblue;
-color: white;
+    cursor: pointer;
+    opacity: .7;
+    background-color: darkblue;
+    color: white;
 }
 
 .account_info {
-width: 80%; 
-float: right; 
-font-size: 18px;
+    width: 80%; 
+    float: right; 
+    font-size: 18px;
 }

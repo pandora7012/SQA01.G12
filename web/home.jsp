@@ -13,9 +13,10 @@
         <title>Trang chủ</title>
     </head>
     <body>
-        <jsp:include page="base.jsp"/>
+        <jsp:include page="index.jsp"/>
         <c:set var="a" value="${sessionScope.account}"/>
         <div style="width: 80%; float: right; font-size: 18px;">
+            <input hidden name="accountid" value="${sessionScope.account.id}"/>
             <h2>Xin chào: ${a.customer.name}</h2>
             <h3>Tài khoản: ${a.number}</h3>
             <h3>Số dư: ${a.balance} VNĐ</h3>

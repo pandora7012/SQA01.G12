@@ -13,10 +13,11 @@
         <title>Khoản vay</title>
     </head>
     <body>
-        <jsp:include page="base.jsp"/>
+        <jsp:include page="index.jsp"/>
         <c:set var="a" value="${sessionScope.account}"/>
         <div style="width: 80%; float: right; margin-top: 15px">
-            <center>
+            <input hidden name="accountid" value="${sessionScope.account.id}"/>
+            <center>                
                 <h3>DANH SÁCH KHOẢN VAY</h3>
                 <c:set var="listloan" value="${requestScope.listloan}"/>
                 <table border="1px">

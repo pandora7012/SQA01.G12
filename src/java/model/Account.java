@@ -4,13 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
  *
  * @author Admin
  */
-public class Account {
+public class Account implements Serializable {
     private int id;
     private String number;
     private BigInteger balance;
@@ -21,6 +22,12 @@ public class Account {
 
     public Account(int id, String number, BigInteger balance, Customer customer) {
         this.id = id;
+        this.number = number;
+        this.balance = balance;
+        this.customer = customer;
+    }
+    
+    public Account(String number, BigInteger balance, Customer customer) {
         this.number = number;
         this.balance = balance;
         this.customer = customer;

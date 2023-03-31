@@ -13,14 +13,15 @@
         <title>Tham khảo vay lãi</title>
     </head>
     <body>
-        <jsp:include page="base.jsp"/>
+        <jsp:include page="index.jsp"/>
         <div style="width: 80%; float: right; margin-top: 15px">
+            <input hidden name="accountid" value="${sessionScope.account.id}"/>
             <center>
                 <h3>THAM KHẢO VAY LÃI</h3>
                 <c:if test="${requestScope.error != null}">
                     <p style="color: red">${requestScope.error}</p>
                 </c:if>
-                <form action="calculation" method="post">
+                    <form action="calculation" name="calculationform" method="post">
                     <label for="input_amount">Số tiền muốn vay: </label>
                     <input type="text" id="input_amount" name="amount" />
                     &nbsp; &nbsp; &nbsp;

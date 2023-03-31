@@ -4,29 +4,41 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Admin
  */
-public class Customer {
+public class Customer implements Serializable {
     private int id;
-    private String name, address, id_card, phonenumber, email, image, username, password;
+    private String name, address, id_card, phonenumber, email, username, password;
     private String dob;
     private boolean gender;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String address, String id_card, String phonenumber, String email, String image, String username, String password, String dob, boolean gender) {
+    public Customer(int id, String name, String address, String id_card, String phonenumber, String email, String username, String password, String dob, boolean gender) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.id_card = id_card;
         this.phonenumber = phonenumber;
         this.email = email;
-        this.image = image;
+        this.username = username;
+        this.password = password;
+        this.dob = dob;
+        this.gender = gender;
+    }
+    
+    public Customer(String name, String address, String id_card, String phonenumber, String email, String username, String password, String dob, boolean gender) {
+        this.name = name;
+        this.address = address;
+        this.id_card = id_card;
+        this.phonenumber = phonenumber;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.dob = dob;
@@ -71,14 +83,6 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getUsername() {

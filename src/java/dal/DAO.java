@@ -24,7 +24,105 @@ import model.Payment;
  * @author Admin
  */
 public class DAO extends DBContext {
+
+    public Customer login(String username, String password) {
+        String sql = "select * from Customer where username = ? and password = ?";
+        try {    
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Customer checkExistedCustomer(String username) {
+        String sql = "select * from Customer where username = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Customer checkID_Card(String id_card) {
+        String sql = "select * from Customer where id_card = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id_card);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
+                return customer;
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public void addCustomer(Customer customer) {
+        String sql = "insert into Customer(name, address, id_card, phonenumber, email, username, password, dob, gender) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setNString(1, customer.getName());
+            st.setNString(2, customer.getAddress());
+            st.setString(3, customer.getId_card());
+            st.setString(4, customer.getPhonenumber());
+            st.setString(5, customer.getEmail());
+            st.setString(6, customer.getUsername());
+            st.setString(7, customer.getPassword());
+            st.setString(8, customer.getDob());
+            st.setBoolean(9, customer.isGender());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
     
+    public void addAccount(Account account) {
+        String sql = "insert into Account(number, balance, customer_id) values (?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, account.getNumber());
+            st.setBigDecimal(2, new BigDecimal(account.getBalance()));
+            st.setInt(3, account.getCustomer().getId());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void addLoan(Loan loan) {
+        String sql = "insert into Loan(account_id, amount, payment_form, loan_time, interest_rate, begin_date, state) values (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, loan.getAccount().getId());
+            ps.setBigDecimal(2, new BigDecimal(loan.getAmount()));
+            ps.setNString(3, loan.getPayment_form());
+            ps.setInt(4, loan.getLoan_time());
+            ps.setDouble(5, loan.getInterest_rate());
+            ps.setString(6, loan.getBegin_date());
+            ps.setBoolean(7, loan.isState());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public Customer getCustomer(String username, String password) {
         String sql = "select * from Customer where username = ? and password = ?";
         try {
@@ -33,7 +131,7 @@ public class DAO extends DBContext {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Customer c = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("image"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
+                Customer c = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
                 return c;
             }
         } catch (SQLException e) {
@@ -41,7 +139,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public Account getAccountByCustomer(Customer customer) {
         String sql = "select * from Account where customer_id = ?";
         try {
@@ -57,7 +155,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public Account getAccountByID(int id) {
         String sql = "select * from Account where id = ?";
         try {
@@ -73,7 +171,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public Customer getCustomerByID(int id) {
         String sql = "select * from Customer where id = ?";
         try {
@@ -81,7 +179,23 @@ public class DAO extends DBContext {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Customer c = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("image"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
+                Customer c = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
+                return c;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public Customer getCustomerByUsername(String username) {
+        String sql = "select * from Customer where username = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer c = new Customer(rs.getInt("id"), rs.getNString("name"), rs.getNString("address"), rs.getString("id_card"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("dob"), rs.getBoolean("gender"));
                 return c;
             }
         } catch (SQLException e) {
@@ -107,6 +221,26 @@ public class DAO extends DBContext {
         return list;
     }
     
+    public void addPayments(List<Payment> list) {
+        String sql = "insert into Payment (loan_id, amount_per_month, interest_per_month, fine, state, payment_date, payment_amount, pay_date) values (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            for (Payment i: list) {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, i.getLoan().getId());
+                ps.setBigDecimal(2, new BigDecimal(i.getAmount_per_month()));
+                ps.setBigDecimal(3, new BigDecimal(i.getInterest_per_month()));
+                ps.setBigDecimal(4, new BigDecimal(i.getFine()));
+                ps.setBoolean(5, i.isState());
+                ps.setString(6, i.getPayment_date());
+                ps.setBigDecimal(7, new BigDecimal(i.getPayment_amount()));
+                ps.setString(8, i.getPay_date());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public Loan getLoanByID(int id) {
         String sql = "select * from Loan where id = ?";
         try {
@@ -122,7 +256,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public List<Payment> getPaymentByLoanID(int loan_id) {
         List<Payment> list = new ArrayList<>();
         String sql = "select * from Payment where loan_id = ?";
@@ -131,7 +265,7 @@ public class DAO extends DBContext {
             ps.setInt(1, loan_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Payment p = new Payment(rs.getInt("id"), getLoanByID(loan_id), rs.getBigDecimal("amount_per_month").toBigInteger() , rs.getBigDecimal("interest_per_month").toBigInteger(), rs.getBigDecimal("fine").toBigInteger(), rs.getBoolean("state"), rs.getString("payment_date"), (rs.getBigDecimal("payment_amount").toBigInteger() != null ? rs.getBigDecimal("payment_amount").toBigInteger() : BigInteger.ZERO), (rs.getString("pay_date") != null ? rs.getString("pay_date") : ""));
+                Payment p = new Payment(rs.getInt("id"), getLoanByID(loan_id), rs.getBigDecimal("amount_per_month").toBigInteger(), rs.getBigDecimal("interest_per_month").toBigInteger(), rs.getBigDecimal("fine").toBigInteger(), rs.getBoolean("state"), rs.getString("payment_date"), (rs.getBigDecimal("payment_amount").toBigInteger() != null ? rs.getBigDecimal("payment_amount").toBigInteger() : BigInteger.ZERO), (rs.getString("pay_date") != null ? rs.getString("pay_date") : ""));
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -139,11 +273,11 @@ public class DAO extends DBContext {
         }
         return list;
     }
-    
+
     public void updatePaymentByTime(List<Payment> list) {
         String sql = "update Payment set fine = ? where id = ?";
         try {
-            for(Payment i: list) {
+            for (Payment i : list) {
                 PreparedStatement ps = connection.prepareCall(sql);
                 ps.setBigDecimal(1, new BigDecimal(i.getFine()));
                 ps.setInt(2, i.getId());
@@ -153,7 +287,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public void updateAccount(Account account) {
         String sql = "update Account set balance = ? where id = ?";
         try {
@@ -165,7 +299,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public Payment getPayment(int id) {
         String sql = "select * from Payment where id = ?";
         try {
@@ -173,7 +307,7 @@ public class DAO extends DBContext {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Payment p = new Payment(rs.getInt("id"), getLoanByID(rs.getInt("loan_id")), rs.getBigDecimal("amount_per_month").toBigInteger() , rs.getBigDecimal("interest_per_month").toBigInteger(), rs.getBigDecimal("fine").toBigInteger(), rs.getBoolean("state"), rs.getString("payment_date"), (rs.getBigDecimal("payment_amount").toBigInteger() != null ? rs.getBigDecimal("payment_amount").toBigInteger() : BigInteger.ZERO), (rs.getString("pay_date") != null ? rs.getString("pay_date") : ""));
+                Payment p = new Payment(rs.getInt("id"), getLoanByID(rs.getInt("loan_id")), rs.getBigDecimal("amount_per_month").toBigInteger(), rs.getBigDecimal("interest_per_month").toBigInteger(), rs.getBigDecimal("fine").toBigInteger(), rs.getBoolean("state"), rs.getString("payment_date"), (rs.getBigDecimal("payment_amount").toBigInteger() != null ? rs.getBigDecimal("payment_amount").toBigInteger() : BigInteger.ZERO), (rs.getString("pay_date") != null ? rs.getString("pay_date") : ""));
                 return p;
             }
         } catch (SQLException e) {
@@ -181,7 +315,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public void updatePayment(Payment payment) {
         String sql = "update Payment set pay_date = ?, payment_amount = ?, state = ? where id = ?";
         try {
@@ -194,8 +328,8 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-    } 
-    
+    }
+
     public void updateLoan(Loan loan) {
         String sql = "update Loan set state = ? where id = ?";
         try {
@@ -207,7 +341,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-            
+
 //    public static void main(String[] args) throws ParseException {
 //        String date = "13/03/2023";
 //        String date2 = "25/03/2023";

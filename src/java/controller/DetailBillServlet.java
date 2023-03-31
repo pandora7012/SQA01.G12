@@ -70,10 +70,10 @@ public class DetailBillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         DAO dao = new DAO();
-        Customer c = dao.getCustomer("long", "123456");
-        Account a = dao.getAccountByCustomer(c);
-        HttpSession session = request.getSession();
-        session.setAttribute("account", a);
+//        Customer c = dao.getCustomer("long", "123456");
+//        Account a = dao.getAccountByCustomer(c);
+//        HttpSession session = request.getSession();
+//        session.setAttribute("account", a);
         String id_raw = request.getParameter("id");
         Date current_date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
@@ -98,12 +98,12 @@ public class DetailBillServlet extends HttpServlet {
             request.setAttribute("sum", sum);
             request.setAttribute("end_time", listpayment.get(listpayment.size() - 1).getPayment_date());
             request.setAttribute("listpayment", listpayment);
+            request.getRequestDispatcher("detailbill.jsp").forward(request, response);
         } catch (NumberFormatException e) {
         
         } catch (ParseException e) {
             
         }
-        request.getRequestDispatcher("detailbill.jsp").forward(request, response);
     } 
 
     private BigInteger interest_fine(long period, BigInteger amount_debt) {
