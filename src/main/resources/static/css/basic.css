@@ -1,0 +1,33 @@
+.container {
+	width: 100%;
+}
+
+.left {
+	display: inline-block;
+	width: 20%;
+	float: left;
+	padding-left: 45px;
+	padding-top: 115px;
+	padding-right: 0px;
+	height: 500px;
+}
+
+.right {
+	display: inline-block;
+	width: 70%;
+	padding-top: 15px;
+	padding-left: 45px;
+	padding-right: 45px;
+	height: 600px;
+}
+
+.register {
+	width: 382px;
+	overflow: hidden;
+	margin: auto;
+	margin: 10 0 0 450px;
+	padding: 60px;
+	background: skyblue;
+	border-radius: 10px;
+	color: black;
+}

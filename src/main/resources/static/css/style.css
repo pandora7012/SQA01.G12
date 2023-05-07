@@ -1,0 +1,54 @@
+.sidebar {
+	height: 100%;
+	width: 210px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding-top: 40px;
+	background-color: skyblue;
+}
+
+.sidebar a {
+	padding: 8px;
+	font-size: 24px;
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+
+.sidebar a:hover {
+	cursor: pointer;
+	opacity: .7;
+	background-color: darkblue;
+	color: white;
+}
+
+.account_info {
+	width: 80%;
+	float: right;
+	font-size: 18px;
+}
+/*.sidebar {*/
+/*	background-color: #333;*/
+/*	position: fixed;*/
+/*	top: 0;*/
+/*	left: 0;*/
+/*	width: 200px;*/
+/*	height: 100%;*/
+/*}*/
+
+/*.sidebar a {*/
+/*	display: block;*/
+/*	padding: 10px;*/
+/*	color: #fff;*/
+/*	text-decoration: none;*/
+/*}*/
+
+/*.sidebar a:hover {*/
+/*	background-color: #555;*/
+/*}*/
+
+/*.content {*/
+/*	margin-left: 200px;*/
+/*	padding: 20px;*/
+/*}*/

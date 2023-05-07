@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Thanh toán</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+        <script>
+            function doPay() {
+                if (confirm("Bạn chắc chắn muốn thanh toán?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="sidebar">
+            <a th:if="${session.account}" th:href="@{/index}">TRANG CHỦ</a>
+            <a th:if="${session.account}" th:href="@{/bill}">HÓA ĐƠN</a>
+            <a th:if="${session.account}" th:href="@{/loan}">VAY TIÊU DÙNG</a>
+            <a th:if="${session.account}" th:href="@{/calculation}">TRA CỨU</a>
+            <a th:if="${session.account}" th:href="@{/logout}">ĐĂNG XUẤT</a>
+            <a th:unless="${session.account}" th:href="@{/login}">ĐĂNG NHẬP</a>
+        </div>
+    <div style="width: 80%; float: right; font-size: 18px; margin-left: 15px">
+        <input hidden name="accountid" th:value="${session.account.id}" />
+        <center>
+            <h3>THÔNG TIN VAY LÃI</h3>
+            <table>
+                <tr>
+                    <td th:text="'Số tiền vay: ' + ${session.loan.amount} + ' VNĐ'"></td>
+                    <td th:text="'Thời gian vay: ' + ${session.loan.loan_time} + ' tháng'"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Lãi suất: ' + ${session.loan.interest_rate} + '%/năm'"></td>
+                    <td th:text="'Thời gian bắt đầu: ' + ${session.loan.begin_date}"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Tổng số tiền phải trả: ' + ${session.sum} + ' VNĐ'"></td>
+                    <td th:text="'Thời gian kết thúc: ' + ${session.end_time}"></td>
+                </tr>
+            </table>
+            <small style="color: red">Thanh toán trước ngày 13 hàng tháng</small>
+            <p style="color: red" th:text="${session.message}"></p>
+            <table border="1px" style="margin-top: 10px">
+                <tr>
+                    <th>Tiền gốc (VNĐ)</th>
+                    <th>Tiền lãi (VNĐ)</th>
+                    <th>Phí phạt (VNĐ)</th>
+                    <th>Ngày đến hạn</th>
+                    <th>Tiền trả (VNĐ)</th>
+                    <th>Ngày trả</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+                    <tr th:each="lp: ${session.listpayment}">
+                        <td style="text-align: right" th:text="${lp.amountPerMonth}"></td>
+                        <td style="text-align: right" th:text="${lp.interestPerMonth}"></td>
+                        <td style="text-align: right" th:text="${lp.fine}"></td>
+                        <td th:text="${lp.paymentDate}"></td>
+                        <td style="text-align: right" th:text="${lp.paymentAmount}"></td>
+                        <td th:text="${lp.payDate}"></td>
+                        <td th:text="${lp.state ? 'Đã trả' : 'Chưa trả'}"></td>
+                        <td>
+                            <a th:href="@{/pay/{id}(id = ${lp.id})}" onclick="return doPay()" th:style="${lp.state ? 'pointer-events: none' : ''}">
+                                Thanh toán
+                            </a>
+                        </td>
+                    </tr>
+            </table>
+        </center>
+    </div>
+    </body>
+</html>

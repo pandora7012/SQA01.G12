@@ -1,0 +1,102 @@
+.register-form_header {
+	margin-top: 20px;
+}
+
+.register-form_heading {
+	text-align: center;
+}
+
+.register-form_group {
+	width: inherit;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	margin-top: 60px;
+}
+
+.register-form_input {
+	margin: auto;
+	height: 50px;
+	width: 600px;
+}
+
+.register-form_DOB_input {
+	margin: auto;
+	height: 50px;
+	width: 389px;
+}
+
+.register-form_button {
+	margin-top: 20px;
+}
+
+.register_button {
+	margin-left: 500px;
+	margin-top: 50px;
+	width: 100px;
+	height: 40px;
+}
+
+.register-form_footer {
+	display: flex;
+	margin-top: 100px;
+}
+
+.forgot_password {
+	margin-left: 150px;
+	font-size: 19px;
+}
+
+.to_register {
+	margin-left: 300px;
+	font-size: 19px;
+}
+/*.for_show_all{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-self: center;
+}*/
+.for_show_register {
+	font-size: 28px;
+	margin-bottom: 30px;
+}
+
+.register-form_group_2 {
+	width: inherit;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	margin-top: 20px;
+}
+
+.register-form_DOB_and_S {
+	display: flex;
+	margin-top: 20px;
+	margin-left: 266px;
+}
+
+.register-form_DOB {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.register_sex {
+	margin-top: 16px;
+	margin-left: 10px;
+}
+
+.sex {
+	font-size: 20px;
+}
+
+.register-footer {
+	margin-top: 20px;
+	margin-left: 190px;
+}
+
+.register_image {
+	display: flex;
+	flex-direction: column;
+}

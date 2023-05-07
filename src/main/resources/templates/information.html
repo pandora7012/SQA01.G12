@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Thông tin cá nhân</title>
+        <link rel="stylesheet" th:href="@{/css/basic.css}">
+        <script>
+            function check() {
+                var name = document.informationform.name.value;
+                var address = document.informationform.address.value;
+                var dob = document.informationform.dob.value;
+                var gender = document.informationform.gender.value;
+                var id_card = document.informationform.id_card.value;
+                var phone = document.informationform.phonenumber.value;
+                var email = document.informationform.email.value;
+                if (name == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập họ và tên";
+                    return false;
+                }
+                if (address == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập địa chỉ";
+                    return false;
+                }
+                if (dob == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập ngày tháng năm sinh";
+                    return false;
+                }
+                if (gender == null) {
+                    document.getElementById("error").innerHTML = "Chưa chọn giới tính";
+                    return false;
+                }
+                if (id_card == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập số CCCD";
+                    return false;
+                }
+                if (phone == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập số điện thoại";
+                    return false;
+                }
+                if (email == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập email";
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="left">
+                <div id="for_show_1">1. Thông tin đăng nhập</div>
+                <br>
+                <div id="for_show_2" style="color: red">2. Cung cấp thông tin cá nhân</div>
+                <br>
+                <div id="for_show_3">3. Đăng kí thành công</div>
+            </div>
+            <div class="right">
+                <div>
+                    <h1 class="register-form_heading" style="text-align: center">KHAI BÁO THÔNG TIN CÁ NHÂN</h1>
+                    <form class="register" th:action="@{/information}" name="informationform" method="post" onsubmit="return check()">
+                        <div class="register-form_form">
+                            <input hidden name="username" th:value="${session.username}">
+                            <input hidden name="password" th:value="${session.password}">
+                            <div class="register-form_group_2">
+                                <label for="ln">Họ và tên:<span style="color: red">*</span></label><br>
+                                <input type="text" style="width: 370px" id="ln" class="register-form_input" name="name">
+                            </div>
+                            <div class="register-form_group_2">
+                                <label for="la">Địa chỉ:<span style="color: red">*</span></label><br>
+                                <input type="text" style="width: 370px" id="la" class="register-form_input" name="address">
+                            </div>
+                            <div class="register-form_DOB_and_S">
+                                  <div class="register-form_DOB">
+                                      <label for="ldob">Ngày tháng năm sinh (dd/MM/yyyy):<span style="color: red">*</span></label>
+                                      <br>
+                                      <input type="date" style="width: 373px" id="ldob" class="register-form_DOB_input" name="dob">
+                                  </div>
+                                  <div class="register_sex">
+                                      <label>Giới tính: </label>
+                                      <input type="radio" class="gender" id="male" value="1" name="gender" checked> Nam
+                                      <input type="radio" class="gender" id="female" value="0" name="gender"> Nữ
+                                  </div>
+                            </div>
+                            <div class="register-form_group_2">
+                                <label for="lid">Số CCCD:<span style="color: red">*</span></label><br>
+                                <input type="text" style="width: 370px" id="lid" class="register-form_input" name="id_card">
+                            </div>
+                            <div class="register-form_group_2">
+                                <label for="lp">Số điện thoại:<span style="color: red">*</span></label><br>
+                                <input type="text" style="width: 370px" id="lp" class="register-form_input" name="phonenumber">
+                            </div>
+                            <div class="register-form_group_2">
+                                <label for="le">Email:<span style="color: red">*</span></label><br>
+                                <input type="text" style="width: 370px" id="le" class="register-form_input" name="email">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="register-footer">
+                            <div style="text-align: center" class="register_condition">
+                              <label>Nhấn nút ĐĂNG KÝ có nghĩa là bạn đã đồng ý với điều khoản ngân hàng</label>
+                            </div>
+                        </div>
+                        <h4 style="color: red; text-align: center" id="error"></h4>
+                        <h4 th:if="${message != null}" style="color: crimson; text-align: center" th:text="${message}"></h4>
+                        <div style="text-align: center" class="register-form_button">
+                            <input class="register_button" type="submit" value="ĐĂNG KÝ">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

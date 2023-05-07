@@ -1,0 +1,74 @@
+.auth {
+	display: flex;
+	margin-left: 150px;
+	margin-top: 100px;
+	height: 800px;
+	align-self: center;
+}
+
+.for_show {
+	border: 1px solid;
+	width: 600px;
+}
+
+.ph {
+	margin-top: 380px;
+	margin-left: 200px;
+}
+
+.auth-form {
+	border: 1px solid;
+	width: 760px;
+}
+
+.auth-form_header {
+	margin-top: 150px;
+}
+
+.auth-form_heading {
+	text-align: center;
+}
+
+.auth-form_group {
+	width: inherit;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	margin-top: 60px;
+}
+
+.auth-form_input {
+	margin: auto;
+	height: 50px;
+	width: 300px;
+}
+
+.auth-form_button {
+	margin-top: 20px;
+}
+
+.auth_button {
+	margin-left: 500px;
+	margin-top: 50px;
+	width: 100px;
+	height: 40px;
+}
+
+.auth-form_footer {
+	display: flex;
+	margin-top: 100px;
+	align-self: center;
+}
+
+.forgot_password {
+	margin-left: 150px;
+}
+
+.to_register {
+	margin-left: 100px;
+	font-size: 19px;
+}
+
+.for_show_register {
+	
+}

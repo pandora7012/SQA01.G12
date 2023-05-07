@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Khoản vay</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="sidebar">
+            <a th:if="${session.account}" th:href="@{/index}">TRANG CHỦ</a>
+            <a th:if="${session.account}" th:href="@{/bill}">HÓA ĐƠN</a>
+            <a th:if="${session.account}" th:href="@{/loan}">VAY TIÊU DÙNG</a>
+            <a th:if="${session.account}" th:href="@{/calculation}">TRA CỨU</a>
+            <a th:if="${session.account}" th:href="@{/logout}">ĐĂNG XUẤT</a>
+            <a th:unless="${session.account}" th:href="@{/login}">ĐĂNG NHẬP</a>
+        </div>
+        <div style="width: 80%; float: right; margin-top: 15px">
+            <input hidden name="accountid" th:value="${session.account.id}" />
+            <center>
+                <h3>DANH SÁCH KHOẢN VAY</h3>
+                <table border="1px">
+                    <tr>
+                        <th>Ngày vay</th>
+                        <th>Số tiền vay</th>
+                        <th>Thời gian vay (tháng)</th>
+                        <th>Lãi suất (%/năm)</th>
+                        <th>Trạng thái</th>
+                        <th>Chi tiết</th>
+                    </tr>
+                        <tr th:each="loan: ${session.listloan}">
+                            <td th:text="${loan.begin_date}"></td>
+                            <td style="text-align: right" th:text="${loan.amount} + ' VNĐ'"></td>
+                            <td style="text-align: right" th:text="${loan.loan_time}"></td>
+                            <td style="text-align: right" th:text="${loan.interest_rate}"></td>
+                            <td th:text="${loan.state == true ? 'Đã hoàn tất' : 'Chưa hoàn tất'}"></td>
+                            <td><a th:href="@{/detailbill/{id}(id = ${loan.id})}">Xem chi tiết</a></td>
+                        </tr>
+                </table>
+                <p style="color: red; text-align: center" th:if="${message != null}" th:text="${message}"></p>
+            </center>
+        </div>
+    </body>
+</html>

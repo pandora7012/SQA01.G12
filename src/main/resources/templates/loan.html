@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vay lãi</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+        <script>
+            function check() {
+                var a = document.loanform.amount.value;
+                if (a == "") {
+                    document.getElementById("error").innerHTML = "Chưa nhập số tiền muốn vay";
+                    return false;
+                }
+                return true;
+            }
+        </script>
+        <style>
+            form {
+                margin: 0 auto;
+                max-width: 600px;
+                border: 1px solid #ddd;
+                padding: 20px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            table td:first-child {
+                font-weight: bold;
+                width: 300px;
+            }
+
+            table select,
+            table input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            table select:focus,
+            table input[type="text"]:focus {
+                outline: none;
+                border-color: #4285f4;
+                box-shadow: 0 0 4px #4285f4;
+            }
+
+            table input[type="submit"] {
+                background-color: #4285f4;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            table input[type="submit"]:hover {
+                background-color: #1a73e8;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar">
+            <a th:if="${session.account}" th:href="@{/index}">TRANG CHỦ</a>
+            <a th:if="${session.account}" th:href="@{/bill}">HÓA ĐƠN</a>
+            <a th:if="${session.account}" th:href="@{/loan}">VAY TIÊU DÙNG</a>
+            <a th:if="${session.account}" th:href="@{/calculation}">TRA CỨU</a>
+            <a th:if="${session.account}" th:href="@{/logout}">ĐĂNG XUẤT</a>
+            <a th:unless="${session.account}" th:href="@{/login}">ĐĂNG NHẬP</a>
+        </div>
+        <div style="width: 80%; float: right; font-size: 18px; margin-top: 15px">
+            <h3 style="text-align: center">ĐĂNG KÍ VAY LÃI</h3>
+            <h5 style="text-align: center">TÍN CHẤP</h5>
+            <center>
+                <form th:action="@{/loan}" name="loanform" method="post" onsubmit="return check()">
+                    <table>
+                          <tr>
+                              <td>
+                                  <label for="input_salary">Thu nhập hàng tháng của bạn <span style="color: red">(*)</span>:</label>
+                              </td>
+                              <td>
+                                  <select id="input_salary" name="salary">
+                                      <option value="5_under">Dưới 5 triệu đồng</option>
+                                      <option value="5_10_between">Từ 5 triệu đến 10 triệu đồng</option>
+                                      <option value="10_higher">Trên 10 triệu đồng</option>
+                                  </select>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <label for="input_method">Hình thức trả lương <span style="color: red">(*)</span>:</label>
+                              </td>
+                              <td>
+                                  <select id="input_method" name="method">
+                                      <option value="This_bank">Trả lương qua ngân hàng này</option>
+                                      <option value="Other_bank">Trả lương qua ngân hàng khác</option>
+                                      <option value="Cash">Tiền mặt</option>
+                                  </select>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <label for="input_amount">Số tiền muốn vay <span style="color: red">(*)</span>: </label>
+                              </td>
+                              <td>
+                                  <input type="text" id="input_amount" name="amount" />
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <label for="input_time">Thời gian vay <span style="color: red">(*)</span>:</label>
+                              </td>
+                              <td>
+                                  <select id="input_time" name="loan_time">
+                                      <option value="3">3 tháng</option>
+                                      <option value="6">6 tháng</option>
+                                      <option value="9">9 tháng</option>
+                                      <option value="12">12 tháng</option>
+                                  </select>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td th:colspan="2">
+                                  <h4 style="color: crimson; text-align: center" id="error"></h4>
+                                  <h4 style="color: crimson; text-align: center" th:if="${message != null}" th:text="${message}"></h4><br>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td th:colspan="2">
+                                  <div style="text-align: center">
+                                      <input type="submit" value="ĐĂNG KÝ VAY" />
+                                  </div>
+                              </td>
+                          </tr>
+                    </table>
+                </form>
+            </center>
+        </div>
+    </body>
+</html>

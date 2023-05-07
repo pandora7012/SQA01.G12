@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+        <title>Hợp đồng vay lãi</title>
+        <style>
+            form {
+                margin: 0 auto;
+                max-width: 600px;
+                border: 1px solid #ddd;
+                padding: 20px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            table td:first-child {
+                font-weight: bold;
+                width: 300px;
+            }
+
+            table select,
+            table input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            table select:focus,
+            table input[type="text"]:focus {
+                outline: none;
+                border-color: #4285f4;
+                box-shadow: 0 0 4px #4285f4;
+            }
+
+            table input[type="submit"] {
+                background-color: #4285f4;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            table input[type="submit"]:hover {
+                background-color: #1a73e8;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar">
+            <a th:if="${session.account}" th:href="@{/index}">TRANG CHỦ</a>
+            <a th:if="${session.account}" th:href="@{/bill}">HÓA ĐƠN</a>
+            <a th:if="${session.account}" th:href="@{/loan}">VAY TIÊU DÙNG</a>
+            <a th:if="${session.account}" th:href="@{/calculation}">TRA CỨU</a>
+            <a th:if="${session.account}" th:href="@{/logout}">ĐĂNG XUẤT</a>
+            <a th:unless="${session.account}" th:href="@{/login}">ĐĂNG NHẬP</a>
+        </div>
+        <div style="width: 80%; float: right; font-size: 18px; margin-top: 15px;">
+            <center>
+                <form th:action="@{/contract}" method="post">
+                    <table>
+                        <tr>
+                            <td colspan="2"><h3 style="text-align: center">HỢP ĐỒNG VAY LÃI</h3></td>
+                        </tr>
+                        <tr>
+                            <td>Họ và tên:</td>
+                            <td><input name="name" th:value="${session.account.customer.name}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính:</td>
+                            <td><input name="gender" th:value="${(session.account.customer.gender ? 'Nam' : 'Nữ')}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày sinh:</td>
+                            <td><input name="dob" th:value="${session.account.customer.dob}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input name="email" th:value="${session.account.customer.email}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td><input name="phone" th:value="${session.account.customer.phonenumber}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ:</td>
+                            <td><input name="address" th:value="${session.account.customer.address}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td th:colspan="2"><h3 style="text-align: center">THÔNG TIN TÍN DỤNG</h3></td>
+                        </tr>
+                        <tr>
+                            <td>Thu nhập hàng tháng:</td>
+                            <td><input name="salary" th:value="${session.salary}" readonly> VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Số tiền muốn vay:</td>
+                            <td><input name="amount" th:value="${session.amount}" readonly> VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Lãi suất:</td>
+                            <td><input name="interest" th:value="${session.interest}" readonly> %</td>
+                        </tr>
+                        <tr>
+                            <td>Thời hạn vay:</td>
+                            <td><input name="time" th:value="${session.time}" readonly> tháng</td>
+                        </tr>
+                        <tr>
+                            <td>Hình thức trả lương:</td>
+                            <td><input name="method" th:value="${session.method}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td th:colspan="2"><p style="text-align: center">
+                                Nhấn nút ĐỒNG Ý có nghĩa bạn đồng ý với điều khoản của chúng tôi</p></td>
+                        </tr>
+                        <tr>
+                            <td th:colspan="2"><p style="text-align: center">
+                                Ngân hàng sẽ liên lạc với bạn sau 24 giờ làm việc để thông báo kết quả duyệt hồ sơ</p></td>
+                        </tr>
+                        <tr>
+                            <td th:colspan="2"><h3 th:if="${error}" th:text="${error}"></h3></td>
+                        </tr>
+                        <tr>
+                            <td th:colspan="2">
+                                <div style="text-align: center">
+                                    <input type="submit" value="ĐỒNG Ý">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </center>
+        </div>
+    </body>
+</html>

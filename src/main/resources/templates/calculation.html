@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ngân hàng</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="sidebar">
+            <a th:if="${session.account}" th:href="@{/index}">TRANG CHỦ</a>
+            <a th:if="${session.account}" th:href="@{/bill}">HÓA ĐƠN</a>
+            <a th:if="${session.account}" th:href="@{/loan}">VAY TIÊU DÙNG</a>
+            <a th:if="${session.account}" th:href="@{/calculation}">TRA CỨU</a>
+            <a th:if="${session.account}" th:href="@{/logout}">ĐĂNG XUẤT</a>
+            <a th:unless="${session.account}" th:href="@{/login}">ĐĂNG NHẬP</a>
+        </div>
+        <div style="width: 80%; float: right; margin-top: 15px">
+            <input hidden name="accountid" value="${sessionScope.account.id}" />
+            <center>
+                <h3>THAM KHẢO VAY LÃI</h3>
+                <p th:if="${error != null}" style="color: red" th:text="${error}"></p>
+                <form th:action="@{/calculation}" name="calculationform" method="post">
+                    <label for="input_amount">Số tiền muốn vay: </label>
+                    <input type="text" id="input_amount" name="amount" /> &nbsp; &nbsp;
+                    &nbsp;
+                    <label for="input_time">Thời gian vay: </label>
+                    <select id="input_time" name="time">
+                        <option value="3">3 tháng</option>
+                        <option value="6">6 tháng</option>
+                        <option value="9">9 tháng</option>
+                        <option value="12">12 tháng</option>
+                    </select> &nbsp; &nbsp; &nbsp;
+                    <input type="submit" value="TÍNH" />
+                </form>
+                <table>
+                    <tr>
+                        <td>
+                            <div th:if="${interest != null && time != null}">
+                                <p th:text="'Lãi suất hiện tại: ' + ${interest} + '%/' + ${time} + 'tháng'"></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div th:if="${interest_per_month != null}">
+                                <p th:text="'Tiền lãi hàng tháng: ' + ${interest_per_month} + ' VNĐ'"></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div th:if="${root_per_month != null}">
+                                <p th:text="'Tiền gốc hàng tháng: ' + ${root_per_month} + ' VNĐ'"></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div th:if="${total_per_month != null}">
+                                <p th:text="'Tổng tiền hàng tháng: ' + ${total_per_month} + ' VNĐ'"></p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </div>
+    </body>
+</html>

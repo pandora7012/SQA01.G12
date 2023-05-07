@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Đăng ký thành công</title>
+        <link rel="stylesheet" th:href="@{css/basic.css}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="left">
+                <div id="for_show_1">1. Thông tin đăng nhập</div>
+                <br>
+                <div id="for_show_2">2. Cung cấp thông tin cá nhân</div>
+                <br>
+                <div id="for_show_3" style="color: red">3. Đăng kí thành công</div>
+            </div>
+            <div class="right">
+                <div>
+                    <form class="register" th:action="@{/register-success}" method="post" onsubmit="return check()">
+                        <input hidden name="username" th:value="${session.username}">
+                        <h1 class="register-form_heading" style="text-align: center">ĐĂNG KÝ THÀNH CÔNG</h1>
+                        <div class="register-form_form">
+                            <input hidden name="customerusername" th:value="${session.username}">
+                            <div style="text-align: center" class="register-form_button">
+                                <input class="register_button" type="submit" value="HOÀN TẤT">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

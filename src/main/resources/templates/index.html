@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ngân hàng</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="sidebar">
+            <a th:if="${session.account}" th:href="@{/index}">TRANG CHỦ</a>
+            <a th:if="${session.account}" th:href="@{/bill}">HÓA ĐƠN</a>
+            <a th:if="${session.account}" th:href="@{/loan}">VAY TIÊU DÙNG</a>
+            <a th:if="${session.account}" th:href="@{/calculation}">TRA CỨU</a>
+            <a th:if="${session.account}" th:href="@{/logout}">ĐĂNG XUẤT</a>
+            <a th:unless="${session.account}" th:href="@{/login}">ĐĂNG NHẬP</a>
+        </div>
+        <div th:if="${session.account}" style='width: 80%; float: right; font-size: 18px;'>
+            <h2 th:text="'Xin chào ' + ${session.account.customer.name}"></h2>
+            <h3 th:text="'Tài khoản: ' + ${session.account.number}"></h3>
+            <h3 th:text="'Số dư: ' + ${session.account.balance} + ' VNĐ'"></h3>
+        </div>
+    </body>
+</html>

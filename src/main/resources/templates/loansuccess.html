@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vay lãi thành công</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div style="font-size: 18px; margin-top: 15px;">
+            <form th:action="@{/loansuccess}" method="post">
+                <input hidden name="accountid" th:value="${session.account.id}">
+                <h3 style="text-align: center">ĐĂNG KÝ VAY LÃI THÀNH CÔNG</h3>
+                <br>
+                <div style="text-align: center">
+                    <input type="submit" value="OK">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
