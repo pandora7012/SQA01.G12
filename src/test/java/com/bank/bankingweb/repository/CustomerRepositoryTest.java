@@ -23,8 +23,8 @@ class CustomerRepositoryTest {
 
     @Test
     void TestfindCustomerByUsernameAndPassword_Right() {
-        String username = "1";
-        String password = "1";
+        String username = "meo";
+        String password = "111";
         Customer customer = customerRepository.findCustomerByUsernameAndPassword(username,password);
         Assertions.assertNotNull(customer);
     }
@@ -61,7 +61,7 @@ class CustomerRepositoryTest {
 
     @Test
     void TestfindCustomerByUsername_Right() {
-        String username = "1";
+        String username = "meo";
         Customer customer = customerRepository.findCustomerByUsername(username);
         Assertions.assertNotNull(customer);
     }
@@ -75,7 +75,7 @@ class CustomerRepositoryTest {
 
     @Test
     void TestfindCustomerByCard_Right() {
-        String card = "1";
+        String card = "3214124";
         Customer customer = customerRepository.findCustomerByCard(card);
         Assertions.assertNotNull(customer);
     }

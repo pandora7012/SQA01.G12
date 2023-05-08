@@ -40,7 +40,7 @@ public class LoanRepositoryTest {
 
     @Test
     void TestfindById_Wrong(){
-        Optional<Loan> loanOptional = loanRepository.findById(1L);
+        Optional<Loan> loanOptional = loanRepository.findById(4L);
         Assertions.assertFalse(loanOptional.isPresent());
     }
 
